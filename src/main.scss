@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "Flutterwave";
+  src: url("https://res.cloudinary.com/dinhhkvvj/raw/upload/v1592615058/fonts/FLW-Regular_tq1gjf.ttf")
+    format("opentype");
+}
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+//Fonts
+
+$fontFlutter: "Flutterwave";
+$fontSfp: "Open Sans", "sans-serif";
+$fontBig: "36";
+$fontSmall: "12";
+$fontNormal: "14px";
+
+//colors
+$primary: #f5a623;
+$secondary: #ffffff;
+$textDark: #333333;
+$textFooter: #4a4a4a;
+$textGrey: #4f4f4f;
+$textDarkGrey:#12122c;
