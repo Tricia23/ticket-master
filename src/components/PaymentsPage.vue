@@ -1,6 +1,5 @@
-<template>
+<!-- <template>
   <div id="modal" class="modal-vue">
-    <!-- button show -->
     <button @click="showModal = true">show</button>
 
     <div class="modal-wrap" v-if="showModal">
@@ -227,7 +226,7 @@ hr {
   vertical-align: middle;
   width: 100%;
 }
-//modal content
+
 .order-left {
   background: #f2f2f2;
   width: 70%;
@@ -451,4 +450,4 @@ hr {
 form {
   padding: 2rem 0;
 }
-</style>
+</style> -->

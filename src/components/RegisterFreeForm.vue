@@ -1,49 +1,91 @@
 <template>
-  <div id="registerFree" class="registerFree">
-    <div class="registerFree__modal-header">
-      <button class="close" @click="showModal = false">
-        <closeIcon />
-      </button>
+  <div id="free" class="modal-vue">
+    <!-- <button @click="showModal = true">show</button> -->
 
-      <h3>Register for free</h3>
+    <!-- overlay -->
+    <div class="overlay" v-if="showModal" @click="showModal = false"></div>
+    <div class="modal-wrap">
+      <div class="modal" v-if="showModal">
+        <div v-if="status === false" id="registerFree" class="registerFree">
+          <div class="registerFree__modal-header">
+            <button class="close" @click="showModal = false">
+              <closeIcon />
+            </button>
+
+            <h3>Register for free</h3>
+          </div>
+          <hr />
+          <form class="registerFree__form">
+            <div class="registerFree__form-group">
+              <label class="registerFree__form-label" for="email">Full name</label>
+              <input type="text" v-model="name" name="name" class="registerFree__form-input" />
+            </div>
+            <div class="registerFree__form-group">
+              <label class="registerFree__form-label" for="email">Email address</label>
+              <input type="email" v-model="email" name="email" class="registerFree__form-input" />
+            </div>
+            <div class="registerFree__form-group">
+              <label class="registerFree__form-label" for="email">Phone number</label>
+              <input
+                type="text"
+                v-model="phone"
+                name="phoneNumber"
+                class="registerFree__form-input"
+              />
+            </div>
+          </form>
+          <button class="registerFree__button" @click="submit">Continue</button>
+        </div>
+        <RegisterFreeConfirmation v-else :show="status" />
+      </div>
     </div>
-    <hr />
-    <form class="registerFree__form">
-      <div class="registerFree__form-group">
-        <label class="registerFree__form-label" for="email">Full name</label>
-        <input type="text" name="name" class="registerFree__form-input" />
-      </div>
-      <div class="registerFree__form-group">
-        <label class="registerFree__form-label" for="email"
-          >Email address</label
-        >
-        <input type="email" name="email" class="registerFree__form-input" />
-      </div>
-      <div class="registerFree__form-group">
-        <label class="registerFree__form-label" for="email">Phone number</label>
-        <input
-          type="text"
-          name="phone-number"
-          class="registerFree__form-input"
-        />
-      </div>
-    </form>
-    <button class="registerFree__button">Continue</button>
   </div>
 </template>
 
 <script>
+import RegisterFreeConfirmation from "@/components/RegisterFreeConfirmation";
+import axios from "axios";
 import closeIcon from "../assets/svg/close.vue";
 export default {
   name: "registerFree",
   components: {
-    closeIcon
+    closeIcon,
+    RegisterFreeConfirmation
   },
-
+  props: ["id"],
   data: function() {
     return {
-      showModal: false
+      showModal: true,
+      name: "",
+      email: "",
+      phone: "",
+      successModal: false,
+      status: false
     };
+  },
+  methods: {
+    submit() {
+      const data = {
+        name: this.name,
+        phone: this.phone,
+        email: this.email
+      };
+      console.log(this.id);
+      axios
+        .post(
+          `https://eventsflw.herokuapp.com/v1/events/${this.id}/register`,
+          data
+        )
+        .then(response => {
+          console.log(response.data);
+          const status = response.data.status;
+          console.log(response.data.status);
+          if (status === "success") {
+            this.successModal = true;
+            this.status = !this.status;
+          }
+        });
+    }
   }
 };
 </script>
@@ -94,9 +136,11 @@ export default {
   display: inline-flex;
 }
 .close {
-  background-color: none;
+  background-color: transparent;
   border: none;
   position: absolute;
+  top: 51px;
+    right: 21px;
 }
 .registerFree__modal-header {
   font-size: 18px;
@@ -105,5 +149,63 @@ export default {
   text-transform: uppercase;
   color: #333333;
   font-weight: 500;
+}
+
+.modal-vue .overlay {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-wrap {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.modal-vue .modal {
+  top: 20%;
+  right: 8%;
+  position: fixed;
+  min-width: 68%;
+  z-index: 9999;
+  margin: auto;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  height: 60%;
+}
+
+@media (min-width: 768px) {
+  .total__button {
+    padding: 20px 20px;
+  }
+
+  .modal-vue .modal {
+    top: 20%;
+    right: 30%;
+    position: fixed;
+    min-width: 25%;
+    z-index: 9999;
+    margin: auto;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    height: 60%;
+  }
+}
+@media (min-width: 650px) and (max-width: 1200px) {
+  .modal-vue .modal {
+    top: 20%;
+    right: 30%;
+    min-width: 40%;
+    height: 60%;
+  }
 }
 </style>

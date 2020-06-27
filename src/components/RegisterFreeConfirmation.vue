@@ -1,5 +1,10 @@
-<template>
-  <div id="app">
+<template v-if="showModal">
+  <div  id="app">
+    <div  class="registerFree__modal-header">
+      <button class="close" @click="showModal = false">
+        <closeIcon />
+      </button>
+    </div>
     <div class="confirmation-wrapper">
       <div class="confirmation-check-icon">
         <svg
@@ -27,14 +32,29 @@
           />
         </svg>
       </div>
-      <span
-        >You have successfully registered for the nathan cole experience.</span
-      >
+      <span>You have successfully registered for the nathan cole experience.</span>
     </div>
   </div>
 </template>
 
+<script>
+import closeIcon from "../assets/svg/close.vue";
+export default {
+  name: "registerFree",
+  components: {
+    closeIcon
+  },
+  data: function() {
+    return {
+      showModal: true,
+     
+    };
+  },
+};
+</script>
+
 <style scoped lang="scss">
+@import "../main.scss";
 .confirmation-wrapper span {
   text-align: center;
   display: block;
@@ -47,5 +67,52 @@
 
 .confirmation-wrapper {
   padding: 3rem 2rem;
+}
+.checkmark__circle {
+  stroke-dasharray: 406;
+  stroke-dashoffset: 406;
+  stroke-width: 5;
+  stroke-miterlimit: 10;
+  stroke: $checkColor;
+  fill: none;
+
+  animation: stroke 0.6s $curve forwards;
+}
+
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
+  animation: stroke 0.3s $curve 0.8s forwards;
+}
+
+.close {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 51px;
+    right: 21px;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 1px $checkColor;
+  }
 }
 </style>

@@ -7,63 +7,71 @@
       />
       <div class="event__details">
         <span class="event__details--date">
-          {{ moment(event.end_time).format("LL") }}
+          {{
+          moment(event.end_time).format("LL")
+          }}
         </span>
         <h4 class="event__details--name">{{ event.name }}</h4>
-        <span class="event__details--price">
-          {{ event.is_free ? "FREE" : "N5000 – N2,000,000" }}
-        </span>
+        <span
+          class="event__details--price"
+          :class="[
+            Object.entries(price).length === 0 ? 'green' : 'normal text'
+          ]"
+        >{{ Object.entries(price).length === 0 ? "FREE" : price.price }}</span>
       </div>
     </a>
   </div>
 </template>
 
 <script>
-// import axios from "axios";
+import axios from "axios";
 export default {
   name: "event",
   props: ["event"],
+
   data() {
     return {
       // events: [],
       // errors: [],
       // tickets: [],
       // prices: []
+      prices: {},
+      price: {}
     };
   },
   mounted() {
-    // axios
-    //   .get(
-    //     `https://eventsflw.herokuapp.com/v1/ticket-types/events/${this.event.id}`
-    //   )
-    //   .then((response) => {
-    //     console.log(response)
-    //     this.tickets.push(response.data.data);
-    //   })
-    //           .then(() => {
-    //             this.tickets.map((ticket) => {
-    //               if (ticket.length == 0) {
-    //                 this.prices.push("Free");
-    //               } else if (ticket.length == 1) {
-    //                 let price = ticket.price / 100;
-    //                 this.prices.push(price);
-    //               } else {
-    //                 this.prices.push(0);
-    //               }
-    //             });
-    //             this.events.map((event) => {
-    //               this.prices.map((price) => {
-    //                 // event.push({ price: price });
-    //                 // event.splice(index, 0, { price: price });
-    //                 console.log(event, { price: price });
-    //               });
-    //             });
-    //           })
-    //           .catch((error) => {
-    //             console.log(error);
-    //           });
-    //       });
-    //     })
+    axios
+      .get(
+        `https://eventsflw.herokuapp.com/v1/ticket-types/events/${this.event.id}`
+      )
+      .then(response => {
+        this.tickets = response.data.data;
+      })
+      .then(() => {
+        const prices = {};
+        this.tickets.forEach((element, index) => {
+          prices[index] = element.price;
+        });
+        this.prices = Object.assign({}, prices);
+
+        let priceLength = Object.keys(this.prices).length;
+
+        if (priceLength == 1) {
+          let price = {};
+          price["price"] = `${this.prices[0]}`;
+          this.price = Object.assign({}, price);
+        } else if (priceLength > 1) {
+          Object.keys(this.prices).sort(
+            (a, b) => this.price[a] - this.prices[b]
+          );
+
+          let size = Object.keys(this.prices).length;
+
+          let price = {};
+          price["price"] = `${this.prices[size - 1]} - ${this.prices[0]}`;
+          this.price = Object.assign({}, price);
+        }
+      });
   }
 };
 </script>
@@ -72,11 +80,11 @@ export default {
 @import "../main.scss";
 
 .event__image {
-  width: 80%;
+  width: 65%;
   display: block;
   object-position: center;
   object-fit: cover;
-  height: 150px;
+  height: 200px;
   border-radius: 6px;
   margin: auto;
 }
@@ -104,7 +112,7 @@ export default {
 }
 
 .event__details--name {
-  font-size: 18px;
+  font-size: 14px;
   line-height: 22px;
   color: $textDark;
   margin: 5px 0;
@@ -120,6 +128,19 @@ export default {
 .event__listing--link {
   text-decoration: none;
   display: block;
+}
+.green {
+  color: $textFree;
+}
+
+.event__inner {
+  padding: 10px 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.event__listing {
+  flex: 0 1 50%;
+  margin-top: 2rem;
 }
 
 @media (min-width: 768px) {
@@ -139,6 +160,11 @@ export default {
     margin-top: 1rem;
   }
 
+  .event__details--name {
+    font-size: 22px;
+    line-height: 22px;
+  }
+
   .event__listing--disabled:hover {
     cursor: not-allowed;
   }
@@ -155,6 +181,26 @@ export default {
   .event__image {
     width: 100%;
     height: 260px;
+  }
+  .event__listing--link {
+    text-decoration: none;
+    display: block;
+  }
+}
+
+@media (min-width: 650px) and (max-width: 1200px) {
+  .event__image {
+    width: 90%;
+    height: 260px;
+  }
+
+  .event__inner {
+    padding: 10px 6px;
+  }
+  .event__details {
+    text-align: center;
+    margin-left: 5px;
+    margin-top: 1rem;
   }
 }
 </style>

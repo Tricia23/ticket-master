@@ -1,9 +1,9 @@
 <template>
   <div id="event">
     <Layout>
-      <div class="event-container">
-        <div class="event-heading">
-          <h1>The best events happening now.</h1>
+      <div class="event__container">
+        <div class="event__heading">
+          <h1 class=".event__heading-text">The best events happening now.</h1>
         </div>
         <SingleEvent />
       </div>
@@ -12,8 +12,6 @@
 </template>
 
 <script>
-// import Layout from "../components/Layout.vue";
-// import SingleEvent from "../components/SingleEvent.vue";
 
 export default {
   name: "event",
@@ -26,7 +24,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../main.scss";
-.event-heading h1 {
+.event__heading h1 {
   font-size: 22px;
   line-height: 40px;
   color: $textDark;
@@ -35,20 +33,21 @@ export default {
   text-align: center;
 }
 
-.event-container {
-  margin: 2rem auto;
+.event__container {
+  margin: 5rem auto;
 }
 
 @media (min-width: 768px) {
-  .event-container {
+  .even__container {
     width: 90%;
     margin: 3rem auto;
+    padding-top: 8rem;
   }
 
-  .event-heading {
+  .event__heading {
     padding-left: 4rem;
   }
-  .event-heading h1 {
+  .event__heading-text {
     padding-left: 2rem;
     font-size: 36px;
     line-height: 40px;

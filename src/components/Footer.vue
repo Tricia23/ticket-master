@@ -2,14 +2,10 @@
   <footer id="footer" class="footer">
     <div class="footer__inner">
       <div class="footer__copyright">
-        <span class="footer__copyright--text"
-          >Copyright 2019. Flutterwave inc</span
-        >
+        <span class="footer__copyright--text">Copyright 2019. Flutterwave inc</span>
       </div>
       <div class="footer__policy">
-        <span class="footer__policy--text footer__policy--terms"
-          >Terms and conditions</span
-        >
+        <span class="footer__policy--text footer__policy--terms">Terms and conditions</span>
         <span class="footer__policy--text">Privacy Policy</span>
       </div>
     </div>
@@ -43,6 +39,15 @@
 }
 
 @media (min-width: 768px) {
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
+  }
   .footer__inner {
     width: 70%;
     display: flex;

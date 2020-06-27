@@ -53,10 +53,7 @@
 </template>
 
 <style scoped lang="scss">
-$checkColor: #f5a623;
-$checkMark: #f5a623;
-
-$curve: cubic-bezier(0.65, 0, 0.45, 1);
+@import "../main.scss";
 
 @font-face {
   font-family: "Flutterwave";

@@ -3,11 +3,7 @@
     <div class="navigation__wrap">
       <div class="navigation__inner">
         <div class="navigation__logo">
-          <img
-            class="navigation__image"
-            alt="Logo"
-            src="../assets/images/logo.png"
-          />
+          <img class="navigation__image" alt="Logo" src="../assets/images/logo.png" />
         </div>
         <div class="hamburger__wrap">
           <button class="hamburger" type="button" @click="menuOpen = !menuOpen">
@@ -18,9 +14,7 @@
         </div>
         <div class="navigation__list-wrap">
           <ul class="navigation__list">
-            <li class="navigation__list-item navigation--text">
-              I didn’t get my tickets
-            </li>
+            <li class="navigation__list-item navigation--text">I didn’t get my tickets</li>
             <li class="navigation__list-item">
               <a class="navigation--button">CREATE YOUR OWN EVENT</a>
             </li>
@@ -28,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="row dropdown" :class="{ 'dropdown-after': menuOpen }">
+    <div class="row dropdown" :class="{ 'dropdown__after': menuOpen }">
       <ul class="navlist">
         <li class="navlistitem">
           <a class="nav__Link nav__link-primary">I didn’t get my own tickets</a>
@@ -54,6 +48,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../main.scss";
+
 .navigation__list-wrap {
   display: none;
 }
@@ -85,6 +80,7 @@ export default {
 
 .hamburger {
   width: 45px;
+  margin-right: 36px;
   height: 45px;
   background-color: $primary;
   border-radius: 4px;
@@ -121,10 +117,13 @@ export default {
   overflow: hidden;
 }
 
-.dropdown-after {
+.dropdown__after {
   margin-top: 5px;
   height: calc(100vh - 50px);
   transition: height 0.2s ease;
+  position: fixed;
+  width: 100vw;
+  top: 61px;
 }
 
 .navlist {
@@ -153,6 +152,14 @@ export default {
   font-weight: bold;
   border-bottom: 1px solid #959494;
 }
+.navigation__wrap {
+  background: $background;
+  position: fixed;
+  top: 0px;
+  width: 100vw;
+  height: 52px;
+  padding-top: 14px;
+}
 //Desktop View
 @media (min-width: 768px) {
   .hamburger__wrap {
@@ -168,7 +175,11 @@ export default {
     justify-content: center;
     align-items: center;
     display: flex;
+    background: none;
+    top: unset;
+    position: relative;
   }
+
   .navigation__inner {
     width: 80%;
     display: flex;

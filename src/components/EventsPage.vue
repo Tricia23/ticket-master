@@ -4,15 +4,17 @@
       <div class="event__detail-wrapper">
         <div class="event__detail-left">
           <div class="event__detail-inner">
-            <span class="event__detail-date">
-              {{
-              moment(event.end_time).format("LL")
-              }}
-            </span>
+            <span class="event__detail-date">{{ moment(event.end_time).format("LL") }}</span>
             <h1 class="event__detail-name">{{ event.name }}</h1>
             <p class="event__detail-description">{{ event.description }}</p>
-            <span class="event__detail-price">{{price.price}}</span>
-            <button class="button">BUY TICKETS</button>
+            <span class="event__detail-price">{{ price.price }}</span>
+            <button class="button" @click="register">
+              {{
+              Object.entries(price).length === 0
+              ? "Register for free"
+              : "Buy Tickets"
+              }}
+            </button>
           </div>
         </div>
         <div class="event__detail-right">
@@ -57,16 +59,23 @@
         </div>
       </div>
     </div>
+    <RegisterFreeForm v-if="showModal" :show="showModal" :id="event.id" />
+    <SummaryModal v-if="showPayModal" :show="showPayModal" :id="event.id" />
   </div>
 </template>
 
 <script>
 import mapIcon from "../assets/svg/map.vue";
 import axios from "axios";
+import RegisterFreeForm from "@/components/RegisterFreeForm";
+import SummaryModal from "@/components/SummaryModal";
+import { mapActions } from "vuex";
 export default {
   name: "events",
   components: {
-    mapIcon
+    mapIcon,
+    RegisterFreeForm,
+    SummaryModal
   },
   data() {
     return {
@@ -74,14 +83,17 @@ export default {
       id: [],
       tickets: [],
       prices: {},
-      price: {}
+      price: {},
+      showModal: false,
+      showPayModal: false
     };
   },
   methods: {
+    ...mapActions(["setTicketTypes"]),
     getPrice: function() {
       axios
         .get(
-          `https://eventsflw.herokuapp.com/v1/ticket-types/events/${this.$route.params.id}`
+          `https://eventsflw.herokuapp.com/v1/ticket-types/events/${this.params.id}`
         )
         .then(response => {
           this.tickets = response.data.data;
@@ -91,11 +103,17 @@ export default {
             this.prices[element.name] = element.price;
           });
         });
+    },
+    register() {
+      if (Object.entries(this.price).length === 0) {
+        this.showModal = !this.showModal;
+      } else {
+        this.showPayModal = !this.showPayModal;
+      }
     }
   },
   mounted() {
     const param = this.$route.params.id;
-    console.log(param);
     axios
       .get("https://eventsflw.herokuapp.com/v1/events/" + param)
       .then(response => {
@@ -107,6 +125,7 @@ export default {
       )
       .then(response => {
         this.tickets = response.data.data;
+        this.setTicketTypes(response.data.data);
       })
       .then(() => {
         const prices = {};
@@ -122,7 +141,7 @@ export default {
           price["price"] = `${this.prices[0]}`;
           this.price = Object.assign({}, price);
         } else if (priceLength > 1) {
-          const sorted = Object.keys(this.prices).sort(
+          Object.keys(this.prices).sort(
             (a, b) => this.price[a] - this.prices[b]
           );
 
@@ -140,6 +159,7 @@ export default {
 
 <style scoped lang="scss">
 @import "../main.scss";
+
 .event__detail-container {
   padding: 20px;
 }
@@ -186,10 +206,11 @@ export default {
   background: $primary;
   border: 1px solid $primary;
   border-radius: 4px;
-  padding: 12px 20px;
+  padding: 8px 20px;
   display: block;
   margin-top: 10px;
-  width: 40%;
+  width: 50%;
+  text-transform: uppercase;
 }
 
 .event__detail-image {
@@ -347,6 +368,16 @@ hr {
   }
   .location__icon-text {
     margin-left: 1rem;
+  }
+}
+
+@media (min-width: 650px) and (max-width: 1200px) {
+  .event__detail-container {
+    width: 90%;
+    margin: auto;
+  }
+  .event__detail-image {
+    padding-left: 0px;
   }
 }
 </style>

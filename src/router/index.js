@@ -3,6 +3,9 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import EventsListing from "../views/EventsListing.vue";
 import EventDetails from "../views/EventDetails.vue";
+import RegisterFreeForm from "../components/RegisterFreeForm.vue";
+import SummaryModal from "../components/SummaryModal.vue";
+import PaymentForm from "../components/PaymentForm.vue";
 
 Vue.use(VueRouter);
 
@@ -22,6 +25,21 @@ const routes = [
     name: "EventDetails",
     component: EventDetails,
     props: true
+  },
+  {
+    path: "/RegisterFreeForm",
+    name: "RegisterFreeForm",
+    component: RegisterFreeForm
+  },
+  {
+    path: "SummaryModal",
+    name: "SummaryModal",
+    component: SummaryModal
+  },
+  {
+    path: "PaymentForm",
+    name: "PaymentForm",
+    component: PaymentForm
   }
   // {
   //   path: "/about",
