@@ -1,58 +1,63 @@
 <template>
   <div id="events" class="event">
-    <div class="event__detail-container">
-      <div class="event__detail-wrapper">
-        <div class="event__detail-left">
-          <div class="event__detail-inner">
-            <span class="event__detail-date">{{ moment(event.end_time).format("LL") }}</span>
-            <h1 class="event__detail-name">{{ event.name }}</h1>
-            <p class="event__detail-description">{{ event.description }}</p>
-            <span class="event__detail-price">{{ price.price }}</span>
-            <button class="button" @click="register">
-              {{
-              Object.entries(price).length === 0
-              ? "Register for free"
-              : "Buy Tickets"
-              }}
-            </button>
+    <div v-if="isLoading">
+      <circle-spin v-bind:loading="isLoading"></circle-spin>
+    </div>
+    <div v-else>
+      <div class="event__detail-container" v-if="!isloading">
+        <div class="event__detail-wrapper">
+          <div class="event__detail-left">
+            <div class="event__detail-inner">
+              <span class="event__detail-date">{{ moment(event.end_time).format("LL") }}</span>
+              <h1 class="event__detail-name">{{ event.name }}</h1>
+              <p class="event__detail-description">{{ event.description }}</p>
+              <span class="event__detail-price">{{ price.price }}</span>
+              <button class="button" @click="register">
+                {{
+                Object.entries(price).length === 0
+                ? "Register for free"
+                : "Buy Tickets"
+                }}
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="event__detail-right">
-          <div class="event__detail-image">
-            <img
-              :src="
+          <div class="event__detail-right">
+            <div class="event__detail-image">
+              <img
+                :src="
                 event.image
                   ? event.image
                   : require('../assets/images/event.png')
               "
-            />
-          </div>
-        </div>
-      </div>
-      <hr />
-      <div class="location__wrapper">
-        <div class="location__inner">
-          <div class="location__event location__event-venu">
-            <div class="location__venu-details">
-              <h5 class="location__header">Venu</h5>
-              <h3 class="location__subheader">{{ event.venue }}</h3>
-              <div class="location__event-map">
-                <mapIcon class="location__icon" />
-                <span class="location__icon-text">View map for directions</span>
-              </div>
+              />
             </div>
           </div>
-          <div class="location__event location__event-time">
-            <div class="location__time-details">
-              <h5 class="location__header">Date and Time</h5>
-              <h3
-                class="location__header-date"
-              >{{ moment(event.tickets_sale_end_date).format("LLLL") }}</h3>
-              <div class="social__links">
-                <h5 class="location__header">Social Links</h5>
-                <a href>http://www.nathanielcole.com</a>
-                <a href>https://twitter.com/nathanielcole</a>
-                <a href>https://instagram.com/nathanielcole</a>
+        </div>
+        <hr />
+        <div class="location__wrapper">
+          <div class="location__inner">
+            <div class="location__event location__event-venu">
+              <div class="location__venu-details">
+                <h5 class="location__header">Venue</h5>
+                <h3 class="location__subheader">{{ event.venue }}</h3>
+                <div class="location__event-map">
+                  <mapIcon class="location__icon" />
+                  <span class="location__icon-text">View map for directions</span>
+                </div>
+              </div>
+            </div>
+            <div class="location__event location__event-time">
+              <div class="location__time-details">
+                <h5 class="location__header">Date and Time</h5>
+                <h3
+                  class="location__header-date"
+                >{{ moment(event.tickets_sale_end_date).format("LLLL") }}</h3>
+                <div class="social__links">
+                  <h5 class="location__header">Social Links</h5>
+                  <a href>http://www.nathanielcole.com</a>
+                  <a href>https://twitter.com/nathanielcole</a>
+                  <a href>https://instagram.com/nathanielcole</a>
+                </div>
               </div>
             </div>
           </div>
@@ -60,7 +65,7 @@
       </div>
     </div>
     <RegisterFreeForm v-if="showModal" :show="showModal" :id="event.id" />
-    <SummaryModal v-if="showPayModal" :show="showPayModal" :id="event.id" />
+    <CartManagement v-if="showPayModal" :show="showPayModal" :id="event.id" />
   </div>
 </template>
 
@@ -68,14 +73,16 @@
 import mapIcon from "../assets/svg/map.vue";
 import axios from "axios";
 import RegisterFreeForm from "@/components/RegisterFreeForm";
-import SummaryModal from "@/components/SummaryModal";
+import CartManagement from "@/views/CartManagement";
 import { mapActions } from "vuex";
+import { CircleSpinner } from "vue-spinners";
 export default {
   name: "events",
   components: {
     mapIcon,
     RegisterFreeForm,
-    SummaryModal
+    CartManagement,
+    circleSpin: CircleSpinner
   },
   data() {
     return {
@@ -85,7 +92,8 @@ export default {
       prices: {},
       price: {},
       showModal: false,
-      showPayModal: false
+      showPayModal: false,
+      isLoading: true
     };
   },
   methods: {
@@ -95,7 +103,9 @@ export default {
         .get(
           `https://eventsflw.herokuapp.com/v1/ticket-types/events/${this.params.id}`
         )
+
         .then(response => {
+          this.isLoading = false;
           this.tickets = response.data.data;
         })
         .then(() => {
@@ -108,7 +118,9 @@ export default {
       if (Object.entries(this.price).length === 0) {
         this.showModal = !this.showModal;
       } else {
-        this.showPayModal = !this.showPayModal;
+        // 
+        this.$router.push({name: "CartManagement"}
+        )
       }
     }
   },
@@ -117,6 +129,7 @@ export default {
     axios
       .get("https://eventsflw.herokuapp.com/v1/events/" + param)
       .then(response => {
+        this.isLoading = false;
         this.event = response.data.data;
       });
     axios
@@ -124,6 +137,7 @@ export default {
         `https://eventsflw.herokuapp.com/v1/ticket-types/events/${this.$route.params.id}`
       )
       .then(response => {
+        this.isLoading = false;
         this.tickets = response.data.data;
         this.setTicketTypes(response.data.data);
       })
@@ -162,7 +176,9 @@ export default {
 
 .event__detail-container {
   padding: 20px;
+ 
 }
+
 .event__detail-wrapper {
   padding: 1rem 0 2rem 0;
 }
@@ -198,7 +214,7 @@ export default {
 }
 
 .button {
-  font-size: 14px;
+  font-size: 10px;
   cursor: pointer;
   outline: none;
   letter-spacing: 0.5px;
@@ -289,6 +305,9 @@ hr {
   }
   .event__detail-inner {
     padding-top: 1rem;
+  }
+  .button {
+  font-size: 14px;
   }
 
   .event__detail-right {

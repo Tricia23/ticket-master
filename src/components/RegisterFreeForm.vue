@@ -36,7 +36,7 @@
           </form>
           <button class="registerFree__button" @click="submit">Continue</button>
         </div>
-        <RegisterFreeConfirmation v-else :show="status" />
+        <RegisterFreeConfirmation v-else :show="status" :hideModal="hideModal" />
       </div>
     </div>
   </div>
@@ -140,7 +140,8 @@ export default {
   border: none;
   position: absolute;
   top: 51px;
-    right: 21px;
+  right: 21px;
+  outline: none;
 }
 .registerFree__modal-header {
   font-size: 18px;

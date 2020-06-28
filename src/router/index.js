@@ -1,27 +1,23 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import EventsListing from "../views/EventsListing.vue";
-import EventDetails from "../views/EventDetails.vue";
-import RegisterFreeForm from "../components/RegisterFreeForm.vue";
-import SummaryModal from "../components/SummaryModal.vue";
-import PaymentForm from "../components/PaymentForm.vue";
+// import Home from "../views/Home.vue";
+import EventsListing from "@/views/EventsListing.vue";
+import EventDetails from "@/views/EventDetails.vue";
+import RegisterFreeForm from "@/components/RegisterFreeForm.vue";
+import CartManagement from "@/views/CartManagement.vue";
+import PaymentForm from "@/components/PaymentForm.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home
-  },
-  {
-    path: "/events",
     name: "EventsListing",
     component: EventsListing
   },
+ 
   {
-    path: "/events/:id",
+    path: "/EventDetails/:id",
     name: "EventDetails",
     component: EventDetails,
     props: true
@@ -32,9 +28,9 @@ const routes = [
     component: RegisterFreeForm
   },
   {
-    path: "SummaryModal",
-    name: "SummaryModal",
-    component: SummaryModal
+    path: "/CartManagement",
+    name: "CartManagement",
+    component: CartManagement
   },
   {
     path: "PaymentForm",

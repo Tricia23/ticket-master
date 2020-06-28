@@ -84,12 +84,13 @@ export default {
       };
 
       window.FlutterwaveCheckout({
-        public_key: "FLWPUBK_TEST-9e0dce7dcf61e963a34a6200680d3fe7-X",
+        public_key: "FLWPUBK_TEST-50436194c91fc1ddf511f1504a56d3b3-X",
         tx_ref: "new-ticket-order" + new Date(),
         amount: this.totalPayment,
         currency: "NGN",
         country: "NG",
         payment_options: "card",
+        
         customer: {
           email: this.email,
           phone_number: this.phone,
@@ -103,7 +104,7 @@ export default {
               const status = response.data.status;
               console.log(response.data.status);
               if (status === "success") {
-                console.log("yes");
+              this.$router.push({name: "EventsListing"})
               }
             });
         },

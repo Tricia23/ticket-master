@@ -6,7 +6,7 @@
       <div class="modal__body">
         <div class="order__left">
           <div class="order__description-wrap">
-            <button class="modal__close" @click="showPayModal = false">
+            <button class="modal__close" @click="showPayModal">
               <closeIcon class="icon" />
               <span>Close</span>
             </button>
@@ -31,6 +31,7 @@
 import closeIcon from "../assets/svg/close.vue";
 import OrderSummary from "../components/OrderSummary.vue";
 import TicketType from "../components/TicketType.vue";
+
 export default {
   name: "modal",
   components: {
@@ -41,7 +42,7 @@ export default {
   props: ["id"],
   data: function() {
     return {
-      showPayModal: true,
+      // showPayModal: true,
       vip: null,
       table: null,
       regular: null
@@ -53,6 +54,12 @@ export default {
     },
     decrement() {
       this.counter--;
+    },
+    showPayModal() {
+      this.$router.push({name: 'EventDetails', params: {id:1}})
+      // this.$router.push("/eventDetails/{{id}}") 
+      
+       
     }
   },
   computed: {

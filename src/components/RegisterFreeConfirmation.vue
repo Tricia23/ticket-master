@@ -1,7 +1,7 @@
 <template v-if="showModal">
-  <div  id="app">
-    <div  class="registerFree__modal-header">
-      <button class="close" @click="showModal = false">
+  <div id="app">
+    <div class="registerFree__modal-header">
+      <button class="close" @click="showModal">
         <closeIcon />
       </button>
     </div>
@@ -45,11 +45,13 @@ export default {
     closeIcon
   },
   data: function() {
-    return {
-      showModal: true,
-     
-    };
+   
   },
+  methods: {
+    showModal() {
+      this.$router.push("EventDetails");
+    }
+  }
 };
 </script>
 
@@ -91,7 +93,7 @@ export default {
   border: none;
   position: absolute;
   top: 51px;
-    right: 21px;
+  right: 21px;
 }
 
 @keyframes stroke {
