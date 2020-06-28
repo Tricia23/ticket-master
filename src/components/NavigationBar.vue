@@ -141,6 +141,8 @@ ul li {
 .event-container {
   width: 90%;
   margin: 3rem auto;
+ 
+ 
 }
 
 .event-heading {

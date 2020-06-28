@@ -110,7 +110,7 @@ body {
   background-color: #fff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  height: 60%;
+  height: 65%;
 }
 
 .modal-vue .close {
@@ -203,7 +203,5 @@ form {
   display: block;
 }
 
-.confirmation-wrapper {
-  padding: 3rem 2rem;
-}
+
 </style>

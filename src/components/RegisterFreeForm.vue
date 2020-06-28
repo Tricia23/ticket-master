@@ -35,7 +35,7 @@
                 name="phoneNumber"
                 class="registerFree__form-input"
               />
-              <p class="registerFree__error" v-if="phoneError">phoneNumber is Required*</p>
+              <p class="registerFree__error" v-if="phoneError">Phone Number is Required*</p>
             </div>
           </form>
           <button class="registerFree__button" @click="submit">Continue</button>
@@ -146,7 +146,7 @@ export default {
   border: 1px solid #e0e0e0;
   border-radius: 4px;
   width: 100%;
-  padding: 15px;
+  padding: 8px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -208,19 +208,22 @@ export default {
   align-items: center;
   width: 100%;
 }
+.registerFree__modal-header h3{
+  font-size:14px;
+}
 
 .modal-vue .modal {
-  top: 20%;
+  top:8%;
   right: 8%;
   position: fixed;
   min-width: 68%;
   z-index: 9999;
   margin: auto;
-  padding: 30px;
+  padding: 30px 30px 10px 30px;
   background-color: #fff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  height: 60%;
+  
 }
 
 @media (min-width: 768px) {
@@ -230,24 +233,33 @@ export default {
 
   .modal-vue .modal {
     top: 20%;
-    right: 30%;
+    right:30%;
     position: fixed;
     min-width: 25%;
     z-index: 9999;
     margin: auto;
-    padding: 30px;
+   padding: 30px 30px 10px 30px;
     background-color: #fff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    height: 60%;
+    
+  }
+  .registerFree__form-input {
+    padding: 15px;
+  
   }
 }
 @media (min-width: 650px) and (max-width: 1200px) {
   .modal-vue .modal {
     top: 20%;
-    right: 30%;
+    right: 25%;
     min-width: 40%;
-    height: 60%;
+     padding: 30px 30px 10px 30px;
+  }
+
+  .registerFree__form-input {
+   padding: 15px;
+  
   }
 }
 </style>

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div id="confirmation">
     <div class="email-confirmation-container">
       <div class="email-confirmation-wrapper">
@@ -203,4 +203,4 @@ form {
 .email-link {
   color: #37a6ee;
 }
-</style>
+</style> -->

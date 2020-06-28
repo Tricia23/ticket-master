@@ -177,7 +177,6 @@ export default {
 
 .event__detail-container {
   padding: 20px;
- 
 }
 
 .event__detail-wrapper {

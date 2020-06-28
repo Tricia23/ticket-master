@@ -32,7 +32,7 @@
           />
         </svg>
       </div>
-      <span>You have successfully registered for the nathan cole experience.</span>
+      <span class="confirmation-text">You have successfully registered for the nathan cole experience.</span>
     </div>
   </div>
 </template>
@@ -60,6 +60,11 @@ export default {
 .confirmation-wrapper span {
   text-align: center;
   display: block;
+padding:0 20px;
+    font-size:16px;
+    font-weight: 600px;
+   
+
 }
 .confirmation-check-icon {
   display: flex;
@@ -95,6 +100,7 @@ export default {
   top: 51px;
   right: 21px;
 }
+ 
 
 @keyframes stroke {
   100% {
@@ -116,5 +122,13 @@ export default {
   100% {
     box-shadow: inset 0px 0px 0px 1px $checkColor;
   }
+}
+
+@media (min-width: 768px) {
+  .confirmation-wrapper {
+ height:400px;
+  }
+
+ 
 }
 </style>
