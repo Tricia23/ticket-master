@@ -1,4 +1,4 @@
-<!-- <template>
+<template>
   <div id="confirmation">
     <div class="email-confirmation-container">
       <div class="email-confirmation-wrapper">
@@ -54,6 +54,7 @@
 
 <style scoped lang="scss">
 @import "../main.scss";
+
 
 @font-face {
   font-family: "Flutterwave";
@@ -203,4 +204,4 @@ form {
 .email-link {
   color: #37a6ee;
 }
-</style> -->
+</style>

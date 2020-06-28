@@ -2,9 +2,11 @@
   <div id="app">
     <div class="navigation__wrap">
       <div class="navigation__inner">
+      <router-link :to="{path: '/'}" >
         <a href="/" class="navigation__logo">
           <img class="navigation__image" alt="Logo" src="../assets/images/logo.png" />
         </a>
+        </router-link>
         <div class="hamburger__wrap">
           <button class="hamburger" type="button" @click="menuOpen = !menuOpen">
             <span class="hamburger__line"></span>
@@ -128,6 +130,7 @@ export default {
 
 .navlist {
   list-style: none;
+  padding:0;
 }
 
 .navlistitem {
@@ -179,6 +182,11 @@ export default {
     top: unset;
     position: relative;
   }
+
+  .navlist {
+  list-style: none;
+  
+}
 
   .navigation__inner {
     width: 80%;

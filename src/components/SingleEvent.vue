@@ -113,7 +113,7 @@ export default {
 
 .event__details--name {
   font-size: 14px;
-  line-height: 2px;
+  line-height: 22px;
   color: $textDark;
   margin: 5px 0;
   font-family: $fontFlutterBold;
