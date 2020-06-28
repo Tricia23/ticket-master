@@ -17,7 +17,7 @@
           :class="[
             Object.entries(price).length === 0 ? 'green' : 'normal text'
           ]"
-        >{{ Object.entries(price).length === 0 ? "FREE" : price.price }}</span>
+        >{{ Object.entries(price).length === 0 ? "FREE" : price.price.toLocaleString() }}</span>
       </div>
     </a>
   </div>
@@ -50,7 +50,7 @@ export default {
       .then(() => {
         const prices = {};
         this.tickets.forEach((element, index) => {
-          prices[index] = element.price;
+          prices[index] = element.price.toLocaleString();
         });
         this.prices = Object.assign({}, prices);
 
@@ -113,9 +113,10 @@ export default {
 
 .event__details--name {
   font-size: 14px;
-  line-height: 22px;
+  line-height: 2px;
   color: $textDark;
   margin: 5px 0;
+  font-family: $fontFlutterBold;
 }
 
 .event__details--price {
@@ -161,7 +162,7 @@ export default {
   }
 
   .event__details--name {
-    font-size: 22px;
+    font-size: 18px;
     line-height: 22px;
   }
 

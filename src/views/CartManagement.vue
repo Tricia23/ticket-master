@@ -32,6 +32,7 @@ import closeIcon from "../assets/svg/close.vue";
 import OrderSummary from "../components/OrderSummary.vue";
 import TicketType from "../components/TicketType.vue";
 
+
 export default {
   name: "modal",
   components: {
@@ -56,10 +57,7 @@ export default {
       this.counter--;
     },
     showPayModal() {
-      this.$router.push({name: 'EventDetails', params: {id:1}})
-      // this.$router.push("/eventDetails/{{id}}") 
-      
-       
+      this.$router.push({name: 'EventDetails', params: {id:this.$route.params.id}}) 
     }
   },
   computed: {
@@ -77,6 +75,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import "../main.scss";
 body {
   background-color: #f2f2f2;
 }
@@ -107,6 +106,7 @@ hr {
 .modal__text {
   font-size: 20px;
   margin-top: 3rem;
+  font-family: $fontFlutterBold;
 }
 
 .modal__close span {

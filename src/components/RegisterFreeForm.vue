@@ -3,8 +3,9 @@
     <!-- <button @click="showModal = true">show</button> -->
 
     <!-- overlay -->
-    <div class="overlay" v-if="showModal" @click="showModal = false"></div>
+   
     <div class="modal-wrap">
+      <div class="overlay" v-if="showModal" @click="showModal = false"></div>
       <div class="modal" v-if="showModal">
         <div v-if="status === false" id="registerFree" class="registerFree">
           <div class="registerFree__modal-header">
@@ -19,24 +20,27 @@
             <div class="registerFree__form-group">
               <label class="registerFree__form-label" for="email">Full name</label>
               <input type="text" v-model="name" name="name" class="registerFree__form-input" />
+              <p class="registerFree__error" v-if="nameError">Name is Required*</p>
             </div>
             <div class="registerFree__form-group">
               <label class="registerFree__form-label" for="email">Email address</label>
-              <input type="email" v-model="email" name="email" class="registerFree__form-input" />
+              <input type="email" v-model="email" name="email" class="registerFree__form-input" required/>
+              <p class="registerFree__error" v-if="emailError">Wrong email format*</p>
             </div>
             <div class="registerFree__form-group">
               <label class="registerFree__form-label" for="email">Phone number</label>
               <input
-                type="text"
+                type="tel"
                 v-model="phone"
                 name="phoneNumber"
                 class="registerFree__form-input"
               />
+              <p class="registerFree__error" v-if="phoneError">phoneNumber is Required*</p>
             </div>
           </form>
           <button class="registerFree__button" @click="submit">Continue</button>
         </div>
-        <RegisterFreeConfirmation v-else :show="status" :hideModal="hideModal" />
+        <RegisterFreeConfirmation v-else :show="status" :showModal="showModal" @show="toggle" />
       </div>
     </div>
   </div>
@@ -59,12 +63,41 @@ export default {
       name: "",
       email: "",
       phone: "",
+      nameError:false,
+      phoneError:false,
+      emailError:false,
       successModal: false,
       status: false
     };
   },
   methods: {
     submit() {
+      this.phoneError = false 
+      this.nameError = false 
+      this.emailError = false
+
+      if (!this.name) {
+       this.nameError =true;
+      }
+
+      if (!this.phone) {
+       this.phoneError =true;
+      }
+
+      const emailValidator = /^\w+[\w-+.]*@\w+([-.]\w+)*.[a-zA-Z]{2,}$/;
+
+      if (!this.email.match(emailValidator)) {
+        this.emailError = true;
+      }
+
+      // if (
+        // this.phoneError == true 
+        // || this.nameError == true 
+        // || this.emailError == true
+      // ){
+      //   return 0;
+      // }
+      
       const data = {
         name: this.name,
         phone: this.phone,
@@ -85,6 +118,10 @@ export default {
             this.status = !this.status;
           }
         });
+        
+    },
+    toggle() {
+      this.showModal=false
     }
   }
 };
@@ -114,6 +151,10 @@ export default {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   background: #fdfdfd;
+}
+.registerFree__error{
+  color:red;
+  margin-top:3px;
 }
 .registerFree__button {
   width: 100%;

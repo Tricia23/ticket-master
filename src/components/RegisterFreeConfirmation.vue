@@ -1,7 +1,7 @@
 <template v-if="showModal">
   <div id="app">
     <div class="registerFree__modal-header">
-      <button class="close" @click="showModal">
+      <button class="close" @click="emitSomething">
         <closeIcon />
       </button>
     </div>
@@ -48,8 +48,8 @@ export default {
    
   },
   methods: {
-    showModal() {
-      this.$router.push("EventDetails");
+     emitSomething() {
+      this.$emit("show");
     }
   }
 };

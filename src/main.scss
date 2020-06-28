@@ -1,14 +1,19 @@
-
-
 @font-face {
-  font-family: "Flutterwave";
+  font-family: "FlutterwaveRegular";
   src: url("https://res.cloudinary.com/dinhhkvvj/raw/upload/v1592615058/fonts/FLW-Regular_tq1gjf.ttf")
     format("opentype");
 }
+@font-face {
+  font-family: "FlutterwaveBold";
+  src: url("https://res.cloudinary.com/dinhhkvvj/raw/upload/v1592615064/fonts/FLW-Bold_ahtb6m.ttf")
+    format("opentype");
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 //Fonts
 
-$fontFlutter: "Flutterwave";
+$fontFlutter: "FlutterwaveRegular";
+$fontFlutterBold: "FlutterwaveBold";
 $fontSfp: "Open Sans", "sans-serif";
 $fontBig: "36";
 $fontSmall: "12";
@@ -22,10 +27,9 @@ $textFooter: #4a4a4a;
 $textGrey: #4f4f4f;
 $textDarkGrey: #12122c;
 $textFree: #219653;
-$background:#f2f2f2;
+$background: #f2f2f2;
 
 //svg
 $checkColor: #f5a623;
 $checkMark: #f5a623;
 $curve: cubic-bezier(0.65, 0, 0.45, 1);
-

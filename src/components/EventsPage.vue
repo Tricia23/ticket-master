@@ -65,7 +65,7 @@
       </div>
     </div>
     <RegisterFreeForm v-if="showModal" :show="showModal" :id="event.id" />
-    <CartManagement v-if="showPayModal" :show="showPayModal" :id="event.id" />
+    <CartManagement v-if="showPayModal" :show="showPayModal" :id="event['id']" />
   </div>
 </template>
 
@@ -142,9 +142,10 @@ export default {
         this.setTicketTypes(response.data.data);
       })
       .then(() => {
+        console.log(this.id)
         const prices = {};
         this.tickets.forEach((element, index) => {
-          prices[index] = element.price;
+          prices[index] = element.price.toLocaleString();
         });
         this.prices = Object.assign({}, prices);
 

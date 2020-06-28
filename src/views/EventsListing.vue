@@ -72,8 +72,9 @@ export default {
   line-height: 40px;
   color: $textDark;
   margin: unset;
-  font-family: $fontFlutter;
+  font-family: $fontFlutterBold;
   text-align: center;
+  font-weight:900;
 }
 
 .event__listing {
@@ -127,7 +128,7 @@ export default {
     line-height: 40px;
     text-align: left;
     font-weight: 900;
-    font-family: $fontFlutter;
+    
   }
 }
 

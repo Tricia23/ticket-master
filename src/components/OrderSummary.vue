@@ -30,7 +30,7 @@
         </div>
         <div class="total__wrap">
           <span class="total__title total__title-capitalize">Vat</span>
-          <span class="total__price">N{{vat}}</span>
+          <span class="total__price">N{{vat.toLocaleString()}}</span>
         </div>
         <div class="total__wrap">
           <div class="total__title total__title-capitalize">Total payment</div>
@@ -100,7 +100,8 @@ export default {
     },
     toggle() {
       this.hidden = !this.hidden;
-    }
+    },
+    
   },
 
   props: ["reg", "vip", "tab", "id"]

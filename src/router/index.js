@@ -17,7 +17,7 @@ const routes = [
   },
  
   {
-    path: "/EventDetails/:id",
+    path: "/event/:id",
     name: "EventDetails",
     component: EventDetails,
     props: true
@@ -28,9 +28,10 @@ const routes = [
     component: RegisterFreeForm
   },
   {
-    path: "/CartManagement",
+    path: "/event/:id/checkout",
     name: "CartManagement",
-    component: CartManagement
+    component: CartManagement,
+    props: true
   },
   {
     path: "PaymentForm",

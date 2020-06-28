@@ -45,6 +45,8 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 import guaranteeIcon from "../assets/svg/guarantee.vue";
 import backIcon from "../assets/svg/back.vue";
+import router from "../router/index";
+
 export default {
   name: "modal",
   components: {
@@ -72,6 +74,8 @@ export default {
           bought[ticket.id] = ticket.count;
         }
       });
+
+      const id = this.$route.params.id;
 
       const data = {
         name: this.name,
@@ -104,7 +108,7 @@ export default {
               const status = response.data.status;
               console.log(response.data.status);
               if (status === "success") {
-              this.$router.push({name: "EventsListing"})
+               router.push({name: 'EventDetails', params: {id:id}})
               }
             });
         },

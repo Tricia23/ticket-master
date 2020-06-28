@@ -3,7 +3,7 @@
     <div class="ticket__summary-wrap" v-for="(ticket, index) in ticketTypes" :key="index">
       <div class="ticket__summary-inner">
         <div class="ticket__col ticket__col-type">{{ ticket.name }}</div>
-        <div class="ticket__col ticket__col-price">N{{ ticket.price }}</div>
+        <div class="ticket__col ticket__col-price">N{{ ticket.price.toLocaleString() }}</div>
         <div class="ticket__col ticket__col-counter">
           <div class="counter__wrap">
             <CounterButton
@@ -89,6 +89,7 @@ export default {
   color: #333333;
   justify-content: center;
   display: flex;
+  
 }
 
 .counter__wrap {
