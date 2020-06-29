@@ -90,13 +90,7 @@ export default {
         this.emailError = true;
       }
 
-      // if (
-        // this.phoneError == true 
-        // || this.nameError == true 
-        // || this.emailError == true
-      // ){
-      //   return 0;
-      // }
+      
       
       const data = {
         name: this.name,

@@ -31,10 +31,7 @@ export default {
 
   data() {
     return {
-      // events: [],
-      // errors: [],
-      // tickets: [],
-      // prices: []
+     
       prices: {},
       price: {}
     };
@@ -109,6 +106,7 @@ export default {
   color: $textGrey;
   font-size: 12px;
   line-height: 14px;
+  font-family: $fontFlutter;
 }
 
 .event__details--name {
@@ -124,6 +122,7 @@ export default {
   line-height: 17px;
   letter-spacing: 0.5px;
   color: $textDark;
+  font-family: $fontFlutter;
 }
 
 .event__listing--link {

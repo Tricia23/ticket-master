@@ -10,10 +10,10 @@
               <closeIcon class="icon" />
               <span>Close</span>
             </button>
-            <h1 class="modal__text">The Nathan Cole Experience</h1>
-            <h3>8th February 2019</h3>
+            <h1 class="modal__text">{{event.name }}</h1>
+            <h3>{{ moment(event.start_time).format("LL") }}</h3>
             <TicketType :id="id" @0="regular = $event" @1="vip = $event" @2="table= $event" />
-            <span class="sales__end">Ticket sales ends on 22nd November 2019</span>
+            <span class="sales__end">Ticket sales ends on {{ moment(event.tickets_sale_end_date ).format("LL") }}</span>
           </div>
         </div>
         <div class="order__right">
@@ -32,7 +32,7 @@ import closeIcon from "../assets/svg/close.vue";
 import OrderSummary from "../components/OrderSummary.vue";
 import TicketType from "../components/TicketType.vue";
 
-
+import axios from 'axios'
 export default {
   name: "modal",
   components: {
@@ -40,15 +40,16 @@ export default {
     OrderSummary,
     TicketType
   },
-  props: ["id"],
   data: function() {
     return {
-      // showPayModal: true,
       vip: null,
       table: null,
-      regular: null
+      regular: null,
+      event: {}
     };
+    
   },
+  props: ["id", "eventName"],
   methods: {
     increment() {
       this.counter++;
@@ -58,6 +59,14 @@ export default {
     },
     showPayModal() {
       this.$router.push({name: 'EventDetails', params: {id:this.$route.params.id}}) 
+    },
+    getEvent: function () {
+        const param = this.$route.params.id;
+    axios
+      .get("https://eventsflw.herokuapp.com/v1/events/" + param)
+      .then(response => {
+        this.event = response.data.data;
+      });
     }
   },
   computed: {
@@ -70,6 +79,12 @@ export default {
     newVip: function() {
       return this.vip;
     }
+  },
+  watch: {
+ 
+  },
+  mounted() {
+    this.getEvent()
   }
 };
 </script>

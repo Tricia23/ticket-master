@@ -4,7 +4,7 @@
       <circle-spin v-bind:loading="isLoading"></circle-spin>
     </div>
     <div v-else>
-      <div class="event__detail-container" v-if="!isloading">
+      <div class="event__detail-container" v-if="!isLoading">
         <div class="event__detail-wrapper">
           <div class="event__detail-left">
             <div class="event__detail-inner">
@@ -65,7 +65,7 @@
       </div>
     </div>
     <RegisterFreeForm v-if="showModal" :show="showModal" :id="event.id" />
-    <CartManagement v-if="showPayModal" :show="showPayModal" :id="event['id']" />
+    <CartManagement v-if="showPayModal" :show="showPayModal" :id="event['id']" :eventName="eventName"/>
   </div>
 </template>
 
@@ -124,6 +124,11 @@ export default {
       }
     }
   },
+  computed: {
+    eventName: function () {
+      return this.event.name
+    }
+  },
   mounted() {
     const param = this.$route.params.id;
     axios
@@ -167,7 +172,7 @@ export default {
           this.price = Object.assign({}, price);
         }
       });
-    // this.getPrice();
+    
   }
 };
 </script>
