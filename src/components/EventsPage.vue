@@ -65,7 +65,12 @@
       </div>
     </div>
     <RegisterFreeForm v-if="showModal" :show="showModal" :id="event.id" />
-    <CartManagement v-if="showPayModal" :show="showPayModal" :id="event['id']" :eventName="eventName"/>
+    <CartManagement
+      v-if="showPayModal"
+      :show="showPayModal"
+      :id="event['id']"
+      :eventName="eventName"
+    />
   </div>
 </template>
 
@@ -118,15 +123,14 @@ export default {
       if (Object.entries(this.price).length === 0) {
         this.showModal = !this.showModal;
       } else {
-        // 
-        this.$router.push({name: "CartManagement"}
-        )
+        //
+        this.$router.push({ name: "CartManagement" });
       }
     }
   },
   computed: {
-    eventName: function () {
-      return this.event.name
+    eventName: function() {
+      return this.event.name;
     }
   },
   mounted() {
@@ -147,7 +151,7 @@ export default {
         this.setTicketTypes(response.data.data);
       })
       .then(() => {
-        console.log(this.id)
+        console.log(this.id);
         const prices = {};
         this.tickets.forEach((element, index) => {
           prices[index] = element.price.toLocaleString();
@@ -172,7 +176,6 @@ export default {
           this.price = Object.assign({}, price);
         }
       });
-    
   }
 };
 </script>
@@ -243,8 +246,9 @@ export default {
 .event__detail-image img {
   object-fit: cover;
   object-position: center;
-  width: 80%;
+  width: 50%;
   border-radius: 6px;
+  height: 120px;
 }
 
 hr {
@@ -312,7 +316,7 @@ hr {
     padding-top: 1rem;
   }
   .button {
-  font-size: 14px;
+    font-size: 14px;
   }
 
   .event__detail-right {
