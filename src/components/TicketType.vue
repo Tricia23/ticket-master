@@ -89,7 +89,6 @@ export default {
   color: #333333;
   justify-content: center;
   display: flex;
-  
 }
 
 .counter__wrap {
@@ -117,6 +116,8 @@ export default {
   background: #ffffff;
   margin: 0 10px;
   border: none;
+  justify-content: center;
+  align-items: center;
 }
 .counter {
   font-size: 24px;

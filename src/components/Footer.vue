@@ -22,14 +22,14 @@
 }
 .footer__copyright--text {
   color: $textFooter;
-  font-size: $fontNormal;
+  font-size: 12px;
   font-family: $fontSfp;
   display: inline-block;
   margin-bottom: 20px;
 }
 .footer__policy--text {
   color: $textFooter;
-  font-size: $fontNormal;
+  font-size: 12px;
   font-family: $fontSfp;
   display: inline-block;
   margin-bottom: 20px;
